@@ -23,19 +23,19 @@ public abstract class Piece {
     
    public boolean DiagonalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-      if (CurrentX-TargetX==CurrentY-TargetY)
+      if (Math.abs(CurrentX-TargetX)==Math.abs(CurrentY-TargetY))
     return true;
         return false;
             }
     public boolean VerticalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-    if (CurrentX == TargetX )
+    if (CurrentY == TargetY )
     return true;
     return false;
         }
      public boolean HorizontalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-    if (CurrentY == TargetY )
+    if (CurrentX == TargetX )
     return true;
     return false;
         }

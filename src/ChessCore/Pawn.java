@@ -22,15 +22,29 @@ boolean white;
     public boolean isValidMove(int CurrentX ,int CurrentY,int TargetX, int TargetY) {
         if (this.FirstMove)
         {
-        if(TargetX==CurrentX&&TargetY==CurrentY+1||TargetX==CurrentX&&TargetY==CurrentY+2)
+            if (white)
+            {
+        if(TargetY==CurrentY &&TargetX==CurrentX+1||TargetY==CurrentY&&TargetX==CurrentX+2)
         return true;
+            
             }
+            else
+            {
+                if(TargetY==CurrentY &&TargetX==CurrentX-1||TargetY==CurrentY&&TargetX==CurrentX-2)
+        return true;
+            }   
+        }
+         
         else {
-        if (TargetX==CurrentX&&TargetY==CurrentY+1)
+        if (white&&TargetY==CurrentY&&TargetX==CurrentX+1)
             return true;
+        
+        else if(!white&&TargetY==CurrentY&&TargetX==CurrentX-1)
+        return true;
         }
         return false;
     }
-} 
+    
+}
    
 
