@@ -1,7 +1,7 @@
 
 package ChessCore;
 
-import java.util.ArrayList;
+
 
 /**
  *
@@ -16,28 +16,54 @@ public class Pawn extends Piece {
 
 
     @Override
-    public boolean isValidMove(int CurrentX ,int CurrentY,int TargetX, int TargetY) {
+    public boolean isValidMove(Tile Current , Tile Target) {
+     /* Tile targetTile=new Tile(TargetX, TargetY);
+      Tile currentTile=new Tile(CurrentX, CurrentY);*/
+        if (this.color)
+       {
         if (this.FirstMove)
         {
-        if(TargetX==CurrentX&&TargetY==CurrentY+1||TargetX==CurrentX&&TargetY==CurrentY+2)
+        if(Target.x==Current.x&&Target.y==Current.y-1||Target.x==Current.x&&Target.y==Current.y-2)
         return true;
             }
         else {
-        if (TargetX==CurrentX&&TargetY==CurrentY+1)
+        if (Target.x==Current.x&&Target.y==Current.y-1)
             return true;
         }
+         if (Target.isOccupied()&&Target.getPiece().color!=Current.getPiece().color)
+         {
+         if (Target.y-Current.y==-1&&Math.abs(Target.x-Current.x)==1)
+         {
+         return true;
+         }
+       }
+       }
+       else{
+        
+        if (this.FirstMove)
+        {
+        if(Target.x==Current.x&&Target.y==Current.y+1||Target.x==Current.x&&Target.y==Current.y+2)
+        return true;
+            }
+        else {
+        if (Target.x==Current.x&&Target.y==Current.y+1)
+            return true;
+        }
+         if (Target.isOccupied()&&Target.getPiece().color!=Current.getPiece().color)
+         {
+         if (Target.y-Current.y==1&&Math.abs(Target.x-Current.x)==1)
+         {
+         return true;
+         }
+         }
+       }   
+      
         return false;
     }
 
-    @Override
-    public ArrayList<Tile> updatePath() {
-        return null;
-    }
-
-    @Override
-    protected ArrayList<Tile> getAllValidMoves(Tile center) {
-        return null;
-    }
+ 
+   
+  
 } 
    
 

@@ -4,7 +4,6 @@
  */
 package ChessCore;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -23,20 +22,11 @@ boolean white;
     
 
     @Override
-    public boolean isValidMove(int CurrentX ,int CurrentY,int TargetX, int TargetY) {
-        if (DiagonalMove(CurrentX, CurrentY, TargetX, TargetY))
+    public boolean isValidMove(Tile Current ,Tile Target) {
+        if (DiagonalMove(Current.x, Current.y, Target.x, Target.y))
          return true;
          return false;
     }
 
-    @Override
-    public ArrayList<Tile> updatePath() {
-        return null;
-    }
-
-    @Override
-    protected ArrayList<Tile> getAllValidMoves(Tile center) {
-        return null;
-    }
-
+   
 }

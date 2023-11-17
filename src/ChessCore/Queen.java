@@ -19,20 +19,12 @@ public class Queen extends Piece{
   
 
     @Override
-    public boolean isValidMove(int CuurentX ,int CurrentY,int TargetX, int TargetY) {
-       if (HorizontalMove(CurrentY, CurrentY, TargetX, TargetY)||VerticalMove(CurrentY, CurrentY, TargetX, TargetY)||DiagonalMove(CurrentY, CurrentY, TargetX, TargetY))
+    public boolean isValidMove(Tile Current,Tile Target) {
+       if (HorizontalMove(Current.x, Current.y, Target.x, Target.y)||VerticalMove(Current.x, Current.y, Target.x, Target.y)||DiagonalMove(Current.x, Current.y, Target.x, Target.y))
    return true;
        return false;
            }
 
-    @Override
-    public ArrayList<Tile> updatePath() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    protected ArrayList<Tile> getAllValidMoves(Tile center) {
-        return null;
-    }
+   
 
 }

@@ -4,7 +4,7 @@
  */
 package ChessCore;
 
-import java.util.ArrayList;
+
 
 /**
  *
@@ -20,21 +20,13 @@ super(white);
  
 //note this piece is the only one that can jump
     @Override
-    public boolean isValidMove(int X1 ,int Y1,int X2, int Y2) {
-        if((Math.abs(X1-X2))==1 && (Math.abs(Y1-Y2)==2)||(Math.abs(X1-X2))==2 && (Math.abs(Y1-Y2)==1))
+    public boolean isValidMove(Tile Current ,Tile Target) {
+        if((Math.abs(Current.x-Target.x))==1 && (Math.abs(Current.y-Target.y)==2)||(Math.abs(Current.x-Target.x))==2 && (Math.abs(Current.y-Target.y)==1))
                 return true;
         return false;
     }
 
-    @Override
-    public ArrayList<Tile> updatePath() {
-        return null;
-    }
-
-    @Override
-    protected ArrayList<Tile> getAllValidMoves(Tile center) {
-        return null;
-    }
+  
 
 }
  

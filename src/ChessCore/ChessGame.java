@@ -17,22 +17,25 @@ public class ChessGame {
     ArrayList<String> moves = new ArrayList<>();
     Player whitePlayer;
     Player blackPlayer ;
-
+  Player nowPlaying;
+  boolean WhitePlayingFlag=true;
+ 
     public ChessGame(String[][] moves) {
         //setup game
         this.whitePlayer = new Player(chessGameBoard, isWhite);
         this.blackPlayer = new Player(chessGameBoard, !isWhite);
+       Board chessGameBoard=new Board();
 
         this.movesString = moves;
-        this.chessGameBoard=new Board();
-//        this.whitePlayer.Fill();
-//        this.blackPlayer.Fill();
+        start();
+      //this.whitePlayer.Fill();
+      //this.blackPlayer.Fill();
     }
 
-    ArrayList<Tile> getAllValidMoves(Tile currentTile){
+   /* ArrayList<Tile> getAllValidMoves(Tile currentTile){
         return currentTile.getPiece().getAllValidMoves(currentTile);
 
-    }
+    }*/
 
 
 // checks the state of the game
@@ -46,7 +49,7 @@ public class ChessGame {
         //stalemate
 
 
-
+return true;
     }
 
 
@@ -68,35 +71,56 @@ public class ChessGame {
         currentTile.setPiece(Killer);
 
     }
-
+ 
 
     public void start() {
 
             for (String move : moves) {
-                if (move.length() == 2) {
-                    int[] index = Utils.ConvertToIndex(move);
-                    int X1 = index[0];
-                    int Y1 = index[1];
-                    int X2 = index[2];
-                    int Y2 = index[3];
-
-
+          if (WhitePlayingFlag==true)
+              nowPlaying=whitePlayer;
+          else
+              nowPlaying=blackPlayer;
+                    Object[] index =Utils.ConvertToIndex(move);
+                    int X1 = (int)index[0];
+                    int Y1 = (int)index[1];
+                    int X2 = (int)index[2];
+                    int Y2 = (int)index[3];
                     Tile currentSquare = chessGameBoard.board[X1][Y1]; // SET AVALIABLE LW EL MOVE SA7 B3D MA YT7ARAK
                     Tile destinationSquare = chessGameBoard.board[X2][Y2]; // IS AVALIABLE  IF YES MOVE
-                    if (currentSquare.getPiece().isValidMove(X1, Y1, X2, Y2)) {
+     if (currentSquare.getPiece().isValidMove(currentSquare,destinationSquare)) {
                         if(IsValidMove())
                         {
+                            if (move.length() == 2) 
+                    
+                        {
                             move(chessGameBoard.getTile(X1,Y1),chessGameBoard.getTile(X2,Y2));
+                            WhitePlayingFlag=!WhitePlayingFlag;
                         }
-
-
+                else 
+                {
+                    char promotedTo=(char)index[4];
+                    if(destinationSquare.getPiece().color&&destinationSquare.y==7||!destinationSquare.getPiece().color&&destinationSquare.y==0)
+                    {
+                        move(chessGameBoard.getTile(X1,Y1),chessGameBoard.getTile(X2,Y2));
+                    
+                    nowPlaying.Promotion(destinationSquare, promotedTo, nowPlaying.white);
+                   WhitePlayingFlag=!WhitePlayingFlag;
+                    
                     }
-
+                    else
+                        System.out.println("Invalid promotion");
+                
                 }
-
+                            
+               
             }
+                        System.out.println("invalid move");
 
 
     }
+                System.out.println("Invalid move");
 
 }
+    }
+    }
+            

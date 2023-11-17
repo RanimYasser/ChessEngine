@@ -4,13 +4,15 @@
  */
 package ChessCore;
 
+
+
 /**
  *
  * Nada Mourad
  */
 public class Board {
     Tile[][] board = new Tile[8][8];
-    GameStates gameStates = new GameStates(this);
+  //  GameStates gameStates = new GameStates(this);
 
 
     public Board() {
@@ -29,4 +31,5 @@ public class Board {
             }
         }
     }
+ 
 }

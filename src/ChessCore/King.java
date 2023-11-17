@@ -19,29 +19,21 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean isValidMove(int CuurentX, int CurrentY, int TargetX, int TargetY) {
-        if (VerticalMove(CuurentX, CurrentY, TargetX, TargetY) && (Math.abs(CurrentY - TargetY) == 1)) 
+    public boolean isValidMove(Tile Current,Tile Target) {
+        if (VerticalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.y - Target.y) == 1)) 
             return true;
         
-        if (HorizontalMove(CuurentX, CurrentY, TargetX, TargetY) && (Math.abs(CuurentX - TargetX) == 1)) 
+        if (HorizontalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.x - Target.x) == 1)) 
             return true;
         
-        if(DiagonalMove(CuurentX, CurrentY, TargetX, TargetY) && (Math.abs(CuurentX - TargetX) == 1) && (Math.abs(CurrentY - TargetY) == 1)) 
+        if(DiagonalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.x - Target.x) == 1) && (Math.abs(Current.y - Target.y) == 1)) 
             return true;
         
     return false;
         
     }
 
-    @Override
-    public ArrayList<Tile> updatePath() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    protected ArrayList<Tile> getAllValidMoves(Tile center) {
-        return null;
-    }
+   
 
 
 }

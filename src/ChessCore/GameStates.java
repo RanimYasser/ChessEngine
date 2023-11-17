@@ -10,7 +10,7 @@ Player player;
         //add constructor
     }
     protected  boolean noLegalMoves(){
-        return player.
+        return true;
 
     }
 

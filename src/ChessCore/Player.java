@@ -5,7 +5,7 @@ package ChessCore;
 import java.util.ArrayList;
 
 public class Player {
-    boolean color ;
+    boolean white ;
     Board chessGameBoard;
     int pawns;
     int knights;
@@ -17,17 +17,17 @@ public class Player {
     int pawnbase;
     boolean isKingchecked;
 
-    public Player(Board chessGameBoard, boolean color) {
+    public Player(Board chessGameBoard, boolean white) {
         this.chessGameBoard = chessGameBoard;
-        this.color=color;
+        this.white=white;
         this.pawns = 8;
         this.rooks = 2;
         this.bishops = 2;
         this.knights = 2;
         this.queens = 1;
         this.kings = 1;
-        this.pawnbase = color ? 6 : 1;
-        this.base = color ? 7 : 0;
+        this.pawnbase = white ? 6 : 1;
+        this.base = white ? 7 : 0;
         isKingchecked=false;
         this.Fill();
 
@@ -37,20 +37,43 @@ public class Player {
  public void Fill() {
 
      for (int i = 0; i < 8; i++) {
-         chessGameBoard.board[pawnbase][i].setPiece(new Pawn(color));
+         chessGameBoard.board[pawnbase][i].setPiece(new Pawn(white));
      }
 
-     chessGameBoard.board[base][0].setPiece(new Rook(color));
-     chessGameBoard.board[base][7].setPiece(new Rook(color));
-     chessGameBoard.board[base][2].setPiece(new Bishop(color));
-     chessGameBoard.board[base][5].setPiece(new Bishop(color));
-     chessGameBoard.board[base][1].setPiece(new Knight(color));
-     chessGameBoard.board[base][6].setPiece(new Knight(color));
-     chessGameBoard.board[base][3].setPiece(new Queen(color));
-     chessGameBoard.board[base][4].setPiece(new King(color));
+     chessGameBoard.board[base][0].setPiece(new Rook(white));
+     chessGameBoard.board[base][7].setPiece(new Rook(white));
+     chessGameBoard.board[base][2].setPiece(new Bishop(white));
+     chessGameBoard.board[base][5].setPiece(new Bishop(white));
+     chessGameBoard.board[base][1].setPiece(new Knight(white));
+     chessGameBoard.board[base][6].setPiece(new Knight(white));
+     chessGameBoard.board[base][3].setPiece(new Queen(white));
+     chessGameBoard.board[base][4].setPiece(new King(white));
  }
- public ArrayList<Tile> getPlayerLegalMoves(){
-        return 
+
+ 
+    public void Promotion(Tile target,char promotedTo,boolean white)
+        {
+           
+            Tile targetTile=chessGameBoard.board[target.x][target.y];
+  
+switch (promotedTo) {
+            case 'Q':
+             targetTile.setPiece(new Queen(white));
+                break;
+            case 'R':
+               targetTile.setPiece(new Rook(white));
+                break;
+            case 'B':
+             targetTile.setPiece(new Bishop(white));
+                break;
+            case 'K':
+              targetTile.setPiece(new Knight(white));
+                break;
+              default:
+                  System.out.println("Wrong char");
+    
 
  }
+        }
+   
 }
