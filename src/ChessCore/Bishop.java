@@ -4,6 +4,8 @@
  */
 package ChessCore;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Win11
@@ -12,8 +14,9 @@ public class Bishop extends Piece {
 boolean white;
 
     public Bishop(boolean white) {
-        this.white = white;
+        super(white);
     }
+
 
    
 
@@ -25,5 +28,15 @@ boolean white;
          return true;
          return false;
     }
-    
+
+    @Override
+    public ArrayList<Tile> updatePath() {
+        return null;
+    }
+
+    @Override
+    protected ArrayList<Tile> getAllValidMoves(Tile center) {
+        return null;
+    }
+
 }

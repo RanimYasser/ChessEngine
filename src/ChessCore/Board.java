@@ -6,25 +6,27 @@ package ChessCore;
 
 /**
  *
- * @author Win11
+ * Nada Mourad
  */
 public class Board {
-    Square [][] board = new Square[8][8] ;
-    
-   
+    Tile[][] board = new Tile[8][8];
+    GameStates gameStates = new GameStates(this);
+
 
     public Board() {
-   for(int i=0; i<8; i++){
-            for(int j=0; j<8; j++){
-              board[i][j] = new Square(i,j);
+
+    }
+
+    public Tile getTile(int x, int y) {
+        return board[x][y];
+    }
+
+    public void fillBoard() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Tile(i, j);
 
             }
-          
-            
-   }
-    
-    
-}
-
-   
+        }
+    }
 }

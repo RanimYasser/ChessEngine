@@ -4,14 +4,16 @@
  */
 package ChessCore;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Win11
  */
 public class Queen extends Piece{
-boolean white;
+
     public Queen(boolean white) {
-    this.white=white;
+    super(white);
     }
 
   
@@ -22,5 +24,15 @@ boolean white;
    return true;
        return false;
            }
-    
+
+    @Override
+    public ArrayList<Tile> updatePath() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected ArrayList<Tile> getAllValidMoves(Tile center) {
+        return null;
+    }
+
 }

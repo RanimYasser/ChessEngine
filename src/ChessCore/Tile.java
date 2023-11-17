@@ -8,28 +8,37 @@ package ChessCore;
  *
  * @author Win11
  */
-public class Square {
+public class Tile {
     int x; // x-coordinate 
     int y; // y-coordinate
-   Piece piece; 
+   private Piece piece;
 
-    public Square(int x, int y) {
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public Tile(int x, int y) {
         this.x = x;
         this.y = y;
+        this.piece=null;
     }
-    
-   public void SetPositionAvaliable()
+
+   public void emptyTile()
    {
    this.piece=null; // f makanha n3ml check isvalid move elawl
    }
    
    
-    public boolean IsAvaliable(Square position)
+    public boolean isOccupied()
     {
-    return position.piece==null ;
+    return this.getPiece()==null ;
     }
 
-   
+
     
     
 }

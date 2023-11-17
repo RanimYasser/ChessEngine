@@ -1,15 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package ChessCore;
 
-/**
- *
- * @author Win11
- */
+
+import java.util.ArrayList;
+
 public class Player {
-    boolean white ;
+    boolean color ;
     Board chessGameBoard;
     int pawns;
     int knights;
@@ -17,66 +13,44 @@ public class Player {
     int queens;
     int rooks;
     int bishops;
-    int base=0;
+    int base;
+    int pawnbase;
+    boolean isKingchecked;
 
-    public Player(Board chessGameBoard, boolean white) {
+    public Player(Board chessGameBoard, boolean color) {
         this.chessGameBoard = chessGameBoard;
-        this.white=white;
-        if(white){
-            base=7;
-        }
-        
-        Fill();
+        this.color=color;
+        this.pawns = 8;
+        this.rooks = 2;
+        this.bishops = 2;
+        this.knights = 2;
+        this.queens = 1;
+        this.kings = 1;
+        this.pawnbase = color ? 6 : 1;
+        this.base = color ? 7 : 0;
+        isKingchecked=false;
+        this.Fill();
+
     }
     
     
- public void Fill()
-    {
-      
-        
-        if (white)
-        {
-        for (int i = 0; i < 8; i++) {
-        chessGameBoard.board[base+1][i].piece=new Pawn(true);
-        pawns=8;
-        }
-        chessGameBoard.board[base][0].piece=new Rook(white);
-        chessGameBoard.board[base][7].piece=new Rook(white);
-        chessGameBoard.board[base][2].piece=new Bishop(white);
-        chessGameBoard.board[base][5].piece=new Bishop(white);
-        chessGameBoard.board[base][1].piece=new Knight(white);
-        chessGameBoard.board[base][6].piece=new Knight(white);
-        chessGameBoard.board[base][3].piece=new Queen(white);
-        chessGameBoard.board[base][4].piece=new King(white);
-        rooks=2;
-        bishops=2;
-        knights=2;
-        queens=1;
-        kings=1;
-       
-        }
-        else
-        {
-                
-        for (int i = 0; i < 8; i++) {
-        
-        chessGameBoard.board[base-1][i].piece=new Pawn(white);
-        pawns=8;
-        }
-        chessGameBoard.board[base][0].piece=new Rook(white);
-        chessGameBoard.board[base][7].piece=new Rook(white);
-        chessGameBoard.board[base][2].piece=new Bishop(white);
-        chessGameBoard.board[base][5].piece=new Bishop(white);
-        chessGameBoard.board[base][1].piece=new Knight(white);
-        chessGameBoard.board[base][6].piece=new Knight(white);
-        chessGameBoard.board[base][3].piece=new Queen(white);
-        chessGameBoard.board[base][4].piece=new King(white);
-        rooks=2;
-        bishops=2;
-        knights=2;
-        queens=1;
-        kings=1;
-    }
-}
- 
+ public void Fill() {
+
+     for (int i = 0; i < 8; i++) {
+         chessGameBoard.board[pawnbase][i].setPiece(new Pawn(color));
+     }
+
+     chessGameBoard.board[base][0].setPiece(new Rook(color));
+     chessGameBoard.board[base][7].setPiece(new Rook(color));
+     chessGameBoard.board[base][2].setPiece(new Bishop(color));
+     chessGameBoard.board[base][5].setPiece(new Bishop(color));
+     chessGameBoard.board[base][1].setPiece(new Knight(color));
+     chessGameBoard.board[base][6].setPiece(new Knight(color));
+     chessGameBoard.board[base][3].setPiece(new Queen(color));
+     chessGameBoard.board[base][4].setPiece(new King(color));
+ }
+ public ArrayList<Tile> getPlayerLegalMoves(){
+        return 
+
+ }
 }

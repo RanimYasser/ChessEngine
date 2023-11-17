@@ -4,6 +4,8 @@
  */
 package ChessCore;
 
+import java.util.ArrayList;
+
 
 enum PiecesType{
 PAWN,BISHOP,KNIGHT,ROOK,QEEN,KING;
@@ -11,38 +13,42 @@ PAWN,BISHOP,KNIGHT,ROOK,QEEN,KING;
 public abstract class Piece {
     boolean white;
     boolean FirstMove;
-    //int x;
-    //int y;
+    private ArrayList<Tile> candidatePath;
+    int x;
+    int y;
+    boolean color;
 
-  /*  public Piece(Color color, int x, int y) {
+   public Piece(boolean color) {
         this.color = color;
-        this.x = x;
-        this.y = y;
-    }*/
+//        this.x = x;
+//        this.y = y;
+        candidatePath= new ArrayList<Tile>();
+        
+                
+}
     
     
    public boolean DiagonalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-      if (Math.abs(CurrentX-TargetX)==Math.abs(CurrentY-TargetY))
+      if (CurrentX-TargetX==CurrentY-TargetY)
     return true;
         return false;
             }
     public boolean VerticalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-    if (CurrentY == TargetY )
+    if (CurrentX == TargetX )
     return true;
     return false;
         }
      public boolean HorizontalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-    if (CurrentX == TargetX )
+    if (CurrentY == TargetY )
     return true;
     return false;
         }
     public abstract boolean isValidMove(int CurrentX,int CurrentY,int TargetX ,int TargetY);
- 
     
-     
-
+    protected abstract ArrayList<Tile> updatePath();
+    protected abstract ArrayList<Tile>getAllValidMoves(Tile center);
             
-            }
+     }
