@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ChessGame {
     private String[][] movesString;
     boolean isWhite=true;
-    Board chessGameBoard ;
+    Board chessGameBoard= new Board(); ;
     ArrayList<String> moves = new ArrayList<>();
     Player whitePlayer;
     Player blackPlayer ;
@@ -21,22 +21,19 @@ public class ChessGame {
   boolean WhitePlayingFlag=true;
  
     public ChessGame(String[][] moves) {
-        //setup game
+  
+        // Ensure the Board is initialized
         this.whitePlayer = new Player(chessGameBoard, isWhite);
         this.blackPlayer = new Player(chessGameBoard, !isWhite);
-       Board chessGameBoard=new Board();
-
+      
         this.movesString = moves;
         start();
-      //this.whitePlayer.Fill();
-      //this.blackPlayer.Fill();
-    }
 
    /* ArrayList<Tile> getAllValidMoves(Tile currentTile){
         return currentTile.getPiece().getAllValidMoves(currentTile);
 
     }*/
-
+    }
 
 // checks the state of the game
     public boolean IsValidMove() {
@@ -72,9 +69,47 @@ return true;
 
     }
  
+ // Inside the Board class
+// Inside the Board class
+public void printBoard() {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Tile tile = chessGameBoard.getTile(i, j);
+            if (tile.isOccupied()) {
+                Piece piece = tile.getPiece();
+                String pieceName = getPieceName(piece);
+                System.out.print(pieceName + " ");
+            } 
+            else {
+                System.out.print("- "); // Placeholder for empty tile
+            }
+        }
+        System.out.println(); // Move to the next row
+    }
+}
+
+private String getPieceName(Piece piece) {
+    if (piece instanceof Pawn) {
+        return piece.color ? "WP" : "BP";
+    } else if (piece instanceof Rook) {
+        return piece.color ? "WR" : "BR";
+    } else if (piece instanceof Bishop) {
+        return piece.color ? "WB" : "BB";
+    } else if (piece instanceof Knight) {
+        return piece.color ? "WN" : "BN";
+    } else if (piece instanceof Queen) {
+        return piece.color ? "WQ" : "BQ";
+    } else if (piece instanceof King) {
+        return piece.color ? "WK" : "BK";
+    } else {
+        return "Unknown Piece";
+    }
+}
+
 
     public void start() {
 
+    printBoard();
             for (String move : moves) {
           if (WhitePlayingFlag==true)
               nowPlaying=whitePlayer;

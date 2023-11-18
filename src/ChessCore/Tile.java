@@ -24,7 +24,7 @@ public class Tile {
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        this.piece=null;
+     
     }
 
    public void emptyTile()
@@ -35,7 +35,7 @@ public class Tile {
    
     public boolean isOccupied()
     {
-    return this.getPiece()==null ;
+    return this.getPiece()!=null ;
     }
 
 

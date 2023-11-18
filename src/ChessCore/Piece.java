@@ -47,7 +47,7 @@ public abstract class Piece {
         }
     public abstract boolean isValidMove(Tile Current,Tile Target);
     
-   public ArrayList<Tile> getAllValidMoves(Tile center,Board chessGameBoard) {
+   public ArrayList<Tile> updateValidMoves(Tile center,Board chessGameBoard) {
         ArrayList<Tile> path=new ArrayList<>();
         for(int i=0;i<8;i++)
         {
@@ -71,5 +71,9 @@ public abstract class Piece {
 }
         return path;
    }
-            
+         
+   public ArrayList<Tile> getAllValidMoves(Tile center,Board chessGameBoard) {
+   ArrayList<Tile> AllValidMoves=new ArrayList<>();
+                return AllValidMoves;
+            }
      }
