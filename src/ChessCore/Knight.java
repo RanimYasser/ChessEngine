@@ -11,22 +11,33 @@ package ChessCore;
  * @author Win11
  */
 public class Knight extends Piece {
+    PiecesType piecesType;
 boolean white;
     public Knight(boolean white) {
 
 super(white);
+piecesType=PiecesType.KNIGHT;
+
     }
 
  
 //note this piece is the only one that can jump
     @Override
-    public boolean isValidMove(Tile Current ,Tile Target) {
-        if((Math.abs(Current.x-Target.x))==1 && (Math.abs(Current.y-Target.y)==2)||(Math.abs(Current.x-Target.x))==2 && (Math.abs(Current.y-Target.y)==1))
+    public boolean isValidMove(Tile Current ,Tile Target,Board board) {
+        if ((!Target.isOccupied()) || (Target.isOccupied() && (Target.getPiece().color != this.color))) {
+            int deltaRow = Math.abs(Current.x - Target.x);
+            int deltaCol = Math.abs(Current.y - Target.y);
+//Knight can jump
+            if ((deltaRow == 1 && deltaCol == 2 || deltaRow == 2 && deltaCol == 1))
                 return true;
-        return false;
+            return false;//Invalid move for horse
+        }
+        return false;// Invalid move because this tile has my piece
+    }
+    public PiecesType getPiecesType() {
+        return  piecesType;
     }
 
-  
 
 }
  

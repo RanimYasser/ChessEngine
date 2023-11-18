@@ -20,7 +20,7 @@ public class Main {
         
     
 
-        String[][] moves = new String[0][];
+        String [] moves = new String[0];
 try {
             BufferedReader read=new BufferedReader( new FileReader("Input.txt"));
         } catch (FileNotFoundException e) {

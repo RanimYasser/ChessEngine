@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 
 enum PiecesType{
-PAWN,BISHOP,KNIGHT,ROOK,QEEN,KING;
+PAWN,BISHOP,KNIGHT,ROOK,QUEEN,KING;
 }
 public abstract class Piece {
     boolean FirstMove;
@@ -43,37 +43,13 @@ public abstract class Piece {
     {
     if (CurrentY == TargetY )
     return true;
+
     return false;
         }
-    public abstract boolean isValidMove(Tile Current,Tile Target);
-    
-   public ArrayList<Tile> updateValidMoves(Tile center,Board chessGameBoard) {
-        ArrayList<Tile> path=new ArrayList<>();
-        for(int i=0;i<8;i++)
-        {
-        for(int j=0;j<8;j++)
-        {
-       Tile temp=chessGameBoard.getTile(i, j);
-        if(center.getPiece().isValidMove(center,temp))
-        {
-            if(temp.getPiece()==null|| center.getPiece() instanceof Knight) //lw el square  fady add to the path   --> king check check
-                path.add(temp);
-        
-            else if(temp.getPiece().color!=center.getPiece().color) // if this tile has an opponent piece add it to the valid path " can kill" and break "can't jump"
-            {
-            path.add(temp);
-            break;
-            } 
-            else 
-                break; //has a piece from my color 
-        }
-    }
-}
-        return path;
-   }
-         
-   public ArrayList<Tile> getAllValidMoves(Tile center,Board chessGameBoard) {
-   ArrayList<Tile> AllValidMoves=new ArrayList<>();
-                return AllValidMoves;
-            }
+    public abstract boolean isValidMove(Tile Current,Tile Target,Board board);
+
+
+    public abstract PiecesType getPiecesType();
+
+
      }
