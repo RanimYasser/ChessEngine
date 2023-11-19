@@ -1,10 +1,9 @@
-
 package ChessCore;
-
 
 import java.util.ArrayList;
 
 public class Player {
+
     boolean white;
     Board chessGameBoard;
     int pawns;
@@ -15,6 +14,7 @@ public class Player {
     int bishops;
     int base;
     int pawnbase;
+    int totalPieces;
     boolean isKingchecked;
 
     public Player(Board chessGameBoard, boolean white) {
@@ -26,13 +26,13 @@ public class Player {
         this.knights = 2;
         this.queens = 1;
         this.kings = 1;
+        this.totalPieces = 16;
         this.pawnbase = white ? 6 : 1;
         this.base = white ? 7 : 0;
         isKingchecked = false;
         this.Fill();
 
     }
-
 
     public void Fill() {
 
@@ -48,12 +48,12 @@ public class Player {
         chessGameBoard.board[base][6].setPiece(new Knight(white));
         chessGameBoard.board[base][3].setPiece(new Queen(white));
         chessGameBoard.board[base][4].setPiece(new King(white));
-    }
 
+    }
 
     public void Promotion(Tile target, char promotedTo, boolean white) {
 
-        Tile targetTile = chessGameBoard.board[target.x][target.y];
+        Tile targetTile = chessGameBoard.getTile(target.x, target.y);
 
         switch (promotedTo) {
             case 'Q':
@@ -71,38 +71,58 @@ public class Player {
             default:
                 System.out.println("Wrong char");
 
-
         }
     }
-    Tile findMyKingTile(){
-        for(int i=0;i<8;i++){
-            for (int j=0;j<8;j++){
-                Tile tile=chessGameBoard.board[i][j];
-                if ((tile.getPiece() instanceof King)&& tile.getPiece().color==white)
+
+    Tile findMyKingTile() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Tile tile = chessGameBoard.getTile(i, j);
+                if ((tile.getPiece() instanceof King) && tile.getPiece().color == white) {
                     return tile;
+                }
             }
         }
         return null;
     }
-   public boolean isKingInCheck(){
-        Tile kingTile=findMyKingTile();
-        for(int i=0;i<8;i++){
-            for (int j=0;j<8;j++){
-                Tile currentTile=chessGameBoard.board[i][j];
-                if(currentTile.getPiece().isValidMove(currentTile,kingTile,chessGameBoard)) {
-                    isKingchecked = true;
-                    return true;
+
+    Tile findMyKingSideRookTile() {
+
+        int base = white ? 7 : 0; // Assuming base 7 for white, 0 for black
+        int kingSideRookColumn = 7; // Assuming king-side rook is always in the last column
+
+        return chessGameBoard.getTile(base, kingSideRookColumn);
+    }
+
+    Tile findMyQueenSideRookTile() {
+
+        int base = white ? 7 : 0; // Assuming base 7 for white, 0 for black
+        int rookColumn = 0; // Assuming king-side rook is always in the last column
+
+        return chessGameBoard.getTile(base, rookColumn);
+    }
+
+    public boolean isKingInCheck() {
+        Tile kingTile = findMyKingTile();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Tile currentTile = chessGameBoard.getTile(i, j);
+                if (currentTile.isOccupied()) {
+                    if (currentTile.getPiece().isValidMove(currentTile, kingTile, chessGameBoard)) {
+                        isKingchecked = true;
+                        return true;
+                    }
                 }
             }
         }
 
         return false;
-   }
-    boolean noLegalMoves(){
-        return true ;
-
     }
 
+    boolean noLegalMoves() {
 
+        return true;
+
+    }
 
 }

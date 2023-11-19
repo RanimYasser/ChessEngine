@@ -4,6 +4,9 @@
  */
 package ChessCore;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +36,7 @@ public class ChessGame {
         this.moves = new Moves();
         this.game = new GameStates(chessGameBoard);
 
-        start();
+       start();
     }
 
 
@@ -41,19 +44,20 @@ public class ChessGame {
 
         printBoard();
         for (String move : movesString) {
-
+            System.out.println("entered game");
             swapTurn();
             //check if game is in progress
             if (isInProgress) {
                 //get move
+                System.out.println("start");
                 Object[] index = Utils.ConvertToIndex(move);
                 int X1 = (int) index[0];
                 int Y1 = (int) index[1];
                 int X2 = (int) index[2];
                 int Y2 = (int) index[3];
 
-                Tile currentSquare = chessGameBoard.board[X1][Y1]; // SET AVALIABLE LW EL MOVE SA7 B3D MA YT7ARAK
-                Tile destinationSquare = chessGameBoard.board[X2][Y2]; // IS AVALIABLE  IF YES MOVE
+                Tile currentSquare = chessGameBoard.getTile(X1, Y1); // SET AVALIABLE LW EL MOVE SA7 B3D MA YT7ARAK
+                Tile destinationSquare = chessGameBoard.getTile(X2, Y2); // IS AVALIABLE  IF YES MOVE
 
                 //handles jumping and handles pieces valid direction and handles if cell is occupied by my piece
                 if (currentSquare.getPiece().isValidMove(currentSquare, destinationSquare, chessGameBoard)) {
@@ -79,14 +83,15 @@ public class ChessGame {
                         }
                     }
                     System.out.println("invalid move");//Illegal move my king is in check
-
+isInProgress= game.isGameInProgress();
 
                 }
                 System.out.println("Invalid move");//player can't play this move
+ isInProgress= game.isGameInProgress();
+            } 
+            else System.out.println("Game already ended");
 
-            } else System.out.println("Game already ended");
-
-           isInProgress= game.isGameInProgress();
+          
 
         }
 
@@ -140,25 +145,33 @@ public ArrayList<Tile> getAllMovesFromSquare(Tile current){
                     String pieceName = getPieceName(piece);
                     System.out.print(pieceName + " ");
                 } else {
-                    System.out.print("- "); // Placeholder for empty tile
+                    System.out.print(" - "); // Placeholder for empty tile
                 }
             }
             System.out.println(); // Move to the next row
         }
+        System.out.println();
     }
 
 
-    private String getPieceName(Piece piece) {
-        return switch (piece) {
-            case Pawn pawn -> piece.color ? "WP" : "BP";
-            case Rook rook -> piece.color ? "WR" : "BR";
-            case Bishop bishop -> piece.color ? "WB" : "BB";
-            case Knight knight -> piece.color ? "WN" : "BN";
-            case Queen queen -> piece.color ? "WQ" : "BQ";
-            case King king -> piece.color ? "WK" : "BK";
-            case null, default -> "Unknown Piece";
-        };
+  private String getPieceName(Piece piece) {
+    if (piece instanceof Pawn) {
+        return piece.color ? "WP" : "BP";
+    } else if (piece instanceof Rook) {
+        return piece.color ? "WR" : "BR";
+    } else if (piece instanceof Bishop) {
+        return piece.color ? "WB" : "BB";
+    } else if (piece instanceof Knight) {
+        return piece.color ? "WN" : "BN";
+    } else if (piece instanceof Queen) {
+        return piece.color ? "WQ" : "BQ";
+    } else if (piece instanceof King) {
+        return piece.color ? "WK" : "BK";
+    } else {
+        return "Unknown Piece";
     }
+}
+
 
 
 }

@@ -5,45 +5,66 @@ public class Moves {
     public Moves() {
     }
 
-    public void move(Tile source, Tile destination, Player player) {
-        // after checking on the validity of the move "100% sure  en el move dy sa7 5alas"
+    public Piece move(Tile source, Tile destination, Player player) {
 
         //if the destination is occupied then it is definitely the other color as the get valid paths handles the same color
-        if (destination.isOccupied()){
-            kill(source.getPiece(),destination);
-            switch (destination.getPiece().getPiecesType()){
-                case KING -> player.kings--;
-                case PAWN -> player.pawns--;
-                case ROOK -> player.rooks--;
-                case QUEEN -> player.queens--;
-                case KNIGHT -> player.knights--;
-                case BISHOP -> player.bishops--;
+        
+      
+            source.getPiece().moves+=1;
+                 
+       if (destination.isOccupied()) {
+            Piece killedPiece= kill(source, destination);
+            player.totalPieces-=1;
+            switch (destination.getPiece().getPiecesType()) {
+                case KING ->
+                    player.kings--;
+                case PAWN ->
+                    player.pawns--;
+                case ROOK ->
+                    player.rooks--;
+                case QUEEN ->
+                    player.queens--;
+                case KNIGHT ->
+                    player.knights--;
+                case BISHOP ->
+                    player.bishops--;    
             }
-
-        }
-        else {
+            
+return killedPiece;
+        } else {
+            
             destination.setPiece(source.getPiece());
             source.emptyThisTile();
+            
         }
+       
+        return null;
     }
-    public void kill(Piece Killer,Tile currentTile){
 
+    public Piece kill(Tile KillerTile, Tile currentTile) {
+        Piece killedPiece = currentTile.getPiece();
         currentTile.emptyThisTile();
-        currentTile.setPiece(Killer);
-
+        currentTile.setPiece(KillerTile.getPiece());
+        KillerTile.emptyThisTile();                // empty killer's tile
+        return killedPiece;
     }
-    public void Promotion(Tile destinationSquare, char promotedTo,Player player){
-        switch(promotedTo){
-            case 'K': destinationSquare.setPiece(new Knight(player.white));
-            player.knights++;
+
+    public void Promotion(Tile destinationSquare, char promotedTo, Player player) {
+        switch (promotedTo) {
+            case 'K':
+                destinationSquare.setPiece(new Knight(player.white));
+                player.knights++;
                 break;
-            case 'Q':destinationSquare.setPiece(new Queen(player.white));
+            case 'Q':
+                destinationSquare.setPiece(new Queen(player.white));
                 player.queens++;
                 break;
-            case 'B':destinationSquare.setPiece(new Bishop(player.white));
+            case 'B':
+                destinationSquare.setPiece(new Bishop(player.white));
                 player.bishops++;
-                    break;
-            case 'R':destinationSquare.setPiece(new Rook(player.white));
+                break;
+            case 'R':
+                destinationSquare.setPiece(new Rook(player.white));
                 player.rooks++;
                 break;
 
