@@ -14,7 +14,8 @@ public class Board {
     Tile[][] board = new Tile[8][8];
 
     public Board() {
-        fillBoard(); 
+
+        fillBoard();
     }
 
     public Tile getTile(int x, int y) {

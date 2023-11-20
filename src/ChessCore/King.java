@@ -25,10 +25,10 @@ public class King extends Piece {
     @Override
     public boolean isValidMove(Tile Current,Tile Target,Board board) {
         if ((!Target.isOccupied()) || (Target.isOccupied() && (Target.getPiece().color != this.color)))  {
-            if (VerticalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.y - Target.y) == 1))
+            if (VerticalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.x - Target.x) == 1))
                 return true;
 
-            if (HorizontalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.x - Target.x) == 1))
+            if (HorizontalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.y - Target.y) == 1))
                 return true;
 
             if (DiagonalMove(Current.x, Current.y, Target.x, Target.y) && (Math.abs(Current.x - Target.x) == 1) && (Math.abs(Current.y - Target.y) == 1))

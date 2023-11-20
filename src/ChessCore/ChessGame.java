@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public class ChessGame {
     private String[] movesString;
     boolean isWhite = true;
-    Board chessGameBoard = new Board();
+    Board chessGameBoard;
 
     //    ArrayList<String> moves = new ArrayList<>();
-    boolean isInProgress;
+    boolean isInProgress = true;
     Player whitePlayer;
     Player blackPlayer;
     Player nowPlaying;
@@ -30,26 +30,26 @@ public class ChessGame {
     public ChessGame(String[] moves) {
 
         // Ensure the Board is initialized
+        this.chessGameBoard = new Board();
         this.whitePlayer = new Player(chessGameBoard, isWhite);
         this.blackPlayer = new Player(chessGameBoard, !isWhite);
         this.movesString = moves;
         this.moves = new Moves();
         this.game = new GameStates(chessGameBoard);
 
-       start();
     }
 
 
     public void start() {
-
+        System.out.println("entered game");
         printBoard();
         for (String move : movesString) {
-            System.out.println("entered game");
-            swapTurn();
+            System.out.println("next move");
+
+            Turn();
             //check if game is in progress
             if (isInProgress) {
                 //get move
-                System.out.println("start");
                 Object[] index = Utils.ConvertToIndex(move);
                 int X1 = (int) index[0];
                 int Y1 = (int) index[1];
@@ -57,6 +57,8 @@ public class ChessGame {
                 int Y2 = (int) index[3];
 
                 Tile currentSquare = chessGameBoard.getTile(X1, Y1); // SET AVALIABLE LW EL MOVE SA7 B3D MA YT7ARAK
+                System.out.println(currentSquare.getPiece().getPiecesType());
+                System.out.println(currentSquare.x + " " + currentSquare.y);
                 Tile destinationSquare = chessGameBoard.getTile(X2, Y2); // IS AVALIABLE  IF YES MOVE
 
                 //handles jumping and handles pieces valid direction and handles if cell is occupied by my piece
@@ -64,76 +66,82 @@ public class ChessGame {
 
                     //check if after this move my king is in check or not
                     if (game.isValidMove(currentSquare, destinationSquare)) {
+//                        System.out.println("game move is valid");
+//                        System.out.println(move.length());
+//                        // regular move
+                        if (move.length() == 5) {
+                            moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), opponent);
 
-                        // regular move
-                        if (move.length() == 2) {
-                            moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2),opponent);
                             WhitePlayingFlag = !WhitePlayingFlag;
                         } //promotion
                         else {
-                            char promotedTo = (char) index[4];
+                            char promotedTo = (char) index[7];
                             if (destinationSquare.getPiece().color == isWhite && destinationSquare.y == 0 || destinationSquare.getPiece().color != isWhite && destinationSquare.y == 7) {
-                                moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2),nowPlaying);
-                                moves.Promotion(destinationSquare, promotedTo,nowPlaying);
+                                moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), nowPlaying);
+                                moves.Promotion(destinationSquare, promotedTo, nowPlaying);
                                 WhitePlayingFlag = !WhitePlayingFlag;
 
 
                             } else System.out.println("Invalid promotion");
 
                         }
+                    } else {
+                        System.out.println("Illegal move");//Illegal move my king is in check}
                     }
-                    System.out.println("invalid move");//Illegal move my king is in check
-isInProgress= game.isGameInProgress();
+                    isInProgress = game.isGameInProgress();
 
+
+                } else {
+                    //player can't play this move
+                    System.out.println("Invalid move");
                 }
-                System.out.println("Invalid move");//player can't play this move
- isInProgress= game.isGameInProgress();
-            } 
-            else System.out.println("Game already ended");
 
-          
+            }
+            else {
+                System.out.println("Game already ended");
+                String color=nowPlaying.isKingchecked? opponent.color: nowPlaying.color;
+                System.out.println(color.toUpperCase()+ " HAS WON");
 
+            }
+
+
+            isInProgress = game.isGameInProgress();
+            WhitePlayingFlag=!WhitePlayingFlag;
         }
+
+
+
 
     }
 
-    public void swapTurn() {
+    public void Turn() {
         if (WhitePlayingFlag) {
             nowPlaying = whitePlayer;
-            opponent=blackPlayer;
+            opponent = blackPlayer;
             game.setPlayer(nowPlaying);
+            game.setOpponent(opponent);
         } else {
             nowPlaying = blackPlayer;
-            opponent=whitePlayer;
+            opponent = whitePlayer;
             game.setPlayer(nowPlaying);
+            game.setOpponent(opponent);
         }
     }
-public ArrayList<Tile> getAllMovesFromSquare(Tile current){
-    ArrayList<Tile>allmoves=new ArrayList<Tile>();
-        for(int i =0;i<8;i++){
-            for(int j=0;j<8;j++){
-                Tile target=chessGameBoard.board[i][j];
-              if(current.getPiece().isValidMove(current,target,chessGameBoard)){
-                  allmoves.add(target);
-              }
+
+    public ArrayList<Tile> getAllMovesFromSquare(Tile current) {
+        ArrayList<Tile> allmoves = new ArrayList<Tile>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Tile target = chessGameBoard.board[i][j];
+                if (current.getPiece().isValidMove(current, target, chessGameBoard)) {
+                    allmoves.add(target);
+                }
 
             }
         }
-       return allmoves;
+        return allmoves;
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
     public void printBoard() {
@@ -154,24 +162,23 @@ public ArrayList<Tile> getAllMovesFromSquare(Tile current){
     }
 
 
-  private String getPieceName(Piece piece) {
-    if (piece instanceof Pawn) {
-        return piece.color ? "WP" : "BP";
-    } else if (piece instanceof Rook) {
-        return piece.color ? "WR" : "BR";
-    } else if (piece instanceof Bishop) {
-        return piece.color ? "WB" : "BB";
-    } else if (piece instanceof Knight) {
-        return piece.color ? "WN" : "BN";
-    } else if (piece instanceof Queen) {
-        return piece.color ? "WQ" : "BQ";
-    } else if (piece instanceof King) {
-        return piece.color ? "WK" : "BK";
-    } else {
-        return "Unknown Piece";
+    private String getPieceName(Piece piece) {
+        if (piece.getPiecesType() == PiecesType.PAWN) {
+            return piece.color ? "WP" : "BP";
+        } else if (piece instanceof Rook) {
+            return piece.color ? "WR" : "BR";
+        } else if (piece instanceof Bishop) {
+            return piece.color ? "WB" : "BB";
+        } else if (piece instanceof Knight) {
+            return piece.color ? "WN" : "BN";
+        } else if (piece instanceof Queen) {
+            return piece.color ? "WQ" : "BQ";
+        } else if (piece instanceof King) {
+            return piece.color ? "WK" : "BK";
+        } else {
+            return "Unknown Piece";
+        }
     }
-}
-
 
 
 }

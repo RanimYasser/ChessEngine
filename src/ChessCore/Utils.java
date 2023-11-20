@@ -12,10 +12,10 @@ public class Utils {
     String[] seperateMoves= move.split(",");
     String firstMove = seperateMoves[0];
     String secondMove = seperateMoves[1];
-    int X1 = firstMove.charAt(0) - 'a';
-    int Y1 = Character.getNumericValue(firstMove.charAt(1));
-    int X2 = secondMove.charAt(0) - 'a';
-    int Y2 = Character.getNumericValue(secondMove.charAt(1));
+    int Y1 = firstMove.charAt(0) - 'a';
+    int Y2 = secondMove.charAt(0) - 'a';
+    int X1 = 8-Character.getNumericValue(firstMove.charAt(1));
+    int X2= 8-Character.getNumericValue(secondMove.charAt(1));
    
     if(seperateMoves.length==3)
     {

@@ -1,8 +1,8 @@
 package ChessCore;
 
-import java.util.ArrayList;
 
 public class Player {
+    String color;
 
     boolean white;
     Board chessGameBoard;
@@ -31,6 +31,8 @@ public class Player {
         this.base = white ? 7 : 0;
         isKingchecked = false;
         this.Fill();
+        if (white) this.color = "white";
+        else this.color = "black";
 
     }
 
@@ -110,6 +112,7 @@ public class Player {
                 if (currentTile.isOccupied()) {
                     if (currentTile.getPiece().isValidMove(currentTile, kingTile, chessGameBoard)) {
                         isKingchecked = true;
+                        System.out.println(this.color+" is in check");
                         return true;
                     }
                 }

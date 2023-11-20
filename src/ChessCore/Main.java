@@ -22,10 +22,10 @@ public class Main {
         
     
         //read from file then instantiate the file
-       String [] moves=loadMovesFromFile("Input.txt");
+       String [] moves=loadMovesFromFile("enpassant.txt");
         printMoves(moves);
         ChessGame chessGame = new ChessGame(moves);
-       // chessGame.start();
+        chessGame.start();
     }
 
     public static String[] loadMovesFromFile(String filePath) {
@@ -41,8 +41,8 @@ public class Main {
         }
 
         // Convert the List to an array
-        String[]  linesArray= new String[lines.size()];
-        return linesArray;
+
+       return lines.toArray(new String[lines.size()]);
     }
     public static void printMoves(String[] moves) {
         for (String move : moves) {

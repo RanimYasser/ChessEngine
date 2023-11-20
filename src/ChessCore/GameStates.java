@@ -7,10 +7,17 @@ public class GameStates {
     Board board;
 
     Player player;
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
+    }
+
+    Player opponent;
     Moves move = new Moves();
 
     public void setPlayer(Player player) {
         this.player = player;
+
     }
 
     public GameStates(Board board) {
@@ -21,11 +28,11 @@ public class GameStates {
 
     public boolean isGameInProgress() {
         player.isKingInCheck();
-        return (!isStalemate() && !isCheckmate() && !InsufficientMaterial());
+        return (!isStalemate() && !isCheckmate() && !InsufficientMaterial(player)&&!InsufficientMaterial(opponent));
 
     }
 
-    public boolean InsufficientMaterial() {
+    public boolean InsufficientMaterial( Player player) {
 if (player.totalPieces==1&&player.kings==1
         ||player.totalPieces==2&&player.knights==1&&player.kings==1
         ||player.totalPieces==2&&player.kings==1&&player.bishops==1)
@@ -94,11 +101,12 @@ return false;
 
     public boolean isCheckmate() {
 
-        return (player.isKingchecked) && player.noLegalMoves();
+
+        return (player.isKingchecked) && player.noLegalMoves()|| ((opponent.isKingInCheck())&& (opponent.noLegalMoves()));
     }
 
     public boolean isStalemate() {
-        return (player.isKingchecked) && !player.noLegalMoves();
+        return (player.isKingchecked) && !player.noLegalMoves()|| opponent.isKingInCheck()&& opponent.noLegalMoves();
 
     }
 

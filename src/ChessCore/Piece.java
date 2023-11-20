@@ -11,7 +11,7 @@ enum PiecesType{
 PAWN,BISHOP,KNIGHT,ROOK,QUEEN,KING;
 }
 public abstract class Piece {
-    boolean FirstMove=false;
+    boolean FirstMove=true;
     private ArrayList<Tile> candidatePath;
     int x;
     int y;
@@ -23,14 +23,14 @@ public abstract class Piece {
 //        this.x = x;
 //        this.y = y;
         candidatePath= new ArrayList<Tile>();
-        
-                
+
+
 }
-   
-    
+
+
    public boolean DiagonalMove(int CurrentX,int CurrentY,int TargetX ,int TargetY)
     {
-      if (CurrentX-TargetX==CurrentY-TargetY)
+      if (Math.abs(CurrentX-TargetX)==Math.abs(CurrentY-TargetY))
     return true;
         return false;
             }

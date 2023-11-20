@@ -8,8 +8,6 @@ public class Moves {
     public Piece move(Tile source, Tile destination, Player player) {
 
         //if the destination is occupied then it is definitely the other color as the get valid paths handles the same color
-        
-      
             source.getPiece().moves+=1;
                  
        if (destination.isOccupied()) {
@@ -27,13 +25,16 @@ public class Moves {
                 case KNIGHT ->
                     player.knights--;
                 case BISHOP ->
-                    player.bishops--;    
+                    player.bishops--;
+
             }
             
-return killedPiece;
-        } else {
+        return killedPiece;
+        }
+       else {
             
             destination.setPiece(source.getPiece());
+           System.out.println("moved"+destination.getPiece().getPiecesType()+" to "+destination.x+" "+destination.y);
             source.emptyThisTile();
             
         }
@@ -45,7 +46,8 @@ return killedPiece;
         Piece killedPiece = currentTile.getPiece();
         currentTile.emptyThisTile();
         currentTile.setPiece(KillerTile.getPiece());
-        KillerTile.emptyThisTile();                // empty killer's tile
+        KillerTile.emptyThisTile();// empty killer's tile
+        System.out.println("killed at "+currentTile.x+" "+currentTile.y);
         return killedPiece;
     }
 
