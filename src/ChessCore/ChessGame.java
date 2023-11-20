@@ -101,10 +101,11 @@ public class ChessGame {
                 System.out.println("Game already ended");
                 String color=nowPlaying.isKingchecked? opponent.color: nowPlaying.color;
                 System.out.println(color.toUpperCase()+ " HAS WON");
+                break;
 
             }
 
-
+printBoard();
             isInProgress = game.isGameInProgress();
             WhitePlayingFlag=!WhitePlayingFlag;
         }
