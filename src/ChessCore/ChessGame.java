@@ -44,7 +44,7 @@ public class ChessGame {
         System.out.println("entered game");
         printBoard();
         for (String move : movesString) {
-            System.out.println("next move");
+           // System.out.println("next move");
 
             Turn();
             hasLegalMoves(nowPlaying);
@@ -53,7 +53,7 @@ public class ChessGame {
             //check if game is in progress
             if (isInProgress) {
 
-                System.out.println(nowPlaying.color);
+               // System.out.println(nowPlaying.color);
                 //get move
                 Object[] index = Utils.ConvertToIndex(move);
                 int X1 = (int) index[0];
@@ -62,8 +62,8 @@ public class ChessGame {
                 int Y2 = (int) index[3];
 
                 Tile currentSquare = chessGameBoard.getTile(X1, Y1); // SET AVALIABLE LW EL MOVE SA7 B3D MA YT7ARAK
-                System.out.println(currentSquare.getPiece().getPiecesType());
-                System.out.println(currentSquare.x + " " + currentSquare.y);
+                //System.out.println(currentSquare.getPiece().getPiecesType());
+                //System.out.println(currentSquare.x + " " + currentSquare.y);
                 Tile destinationSquare = chessGameBoard.getTile(X2, Y2); // IS AVALIABLE  IF YES MOVE
 
                 //handles jumping and handles pieces valid direction and handles if cell is occupied by my piece
@@ -76,12 +76,15 @@ public class ChessGame {
 //                        // regular move
                         if (move.length() == 5) {
                             moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), opponent);
-
+if (nowPlaying.isKingInCheck())
+{
+    System.out.println(nowPlaying.color + " is in check!");
+}
 
                         } //promotion
                         else {
                             char promotedTo = (char) index[4];
-                            if (destinationSquare.getPiece().color == isWhite && destinationSquare.y == 0 || destinationSquare.getPiece().color != isWhite && destinationSquare.y == 7) {
+                 if (destinationSquare.getPiece().color == isWhite && destinationSquare.y == 0 || destinationSquare.getPiece().color != isWhite && destinationSquare.y == 7) {
                                 moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), nowPlaying);
                                 moves.Promotion(destinationSquare, promotedTo, nowPlaying);
 
@@ -107,21 +110,23 @@ public class ChessGame {
                 System.out.println(color.toUpperCase()+ " HAS WON");
                 break;
             }
-            System.out.println(opponent.isKingInCheck());
-            System.out.println(nowPlaying.isKingInCheck());
+           // System.out.println(opponent.isKingInCheck());
+            //System.out.println(nowPlaying.isKingInCheck());
 
             hasLegalMoves(opponent);
             hasLegalMoves(nowPlaying);
-            System.out.println(opponent.hasLegalMoves);
-            System.out.println(nowPlaying.hasLegalMoves);
+          //  System.out.println(opponent.hasLegalMoves);
+            //System.out.println(nowPlaying.hasLegalMoves);
             isInProgress=game.isGameInProgress();
 //            System.out.println(isInProgress);
+printBoard();
 
-
-            printBoard();
-            WhitePlayingFlag=!WhitePlayingFlag;
+}printBoard();
+        if(!isInProgress){
+            String color=nowPlaying.isKingInCheck()?opponent.color:nowPlaying.color;
+            System.out.println(color.toUpperCase()+" WON");
         }
-
+       
 
 
 

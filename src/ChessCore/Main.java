@@ -22,7 +22,7 @@ public class Main {
         
     
         //read from file then instantiate the file
-       String [] moves=loadMovesFromFile("Input.txt");
+       String [] moves=loadMovesFromFile("enpassant.txt");
         printMoves(moves);
         ChessGame chessGame = new ChessGame(moves);
         chessGame.start();

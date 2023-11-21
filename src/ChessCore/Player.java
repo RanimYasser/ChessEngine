@@ -18,7 +18,7 @@ public class Player {
     int pawnbase;
     int totalPieces;
     boolean isKingchecked;
-    boolean hasLegalMoves=true;
+    boolean hasLegalMoves;
 
     public Player(Board chessGameBoard, boolean white) {
         this.chessGameBoard = chessGameBoard;
@@ -36,6 +36,7 @@ public class Player {
         this.Fill();
         if (white) this.color = "white";
         else this.color = "black";
+        this.hasLegalMoves=true;
 
     }
 

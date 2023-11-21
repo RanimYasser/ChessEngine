@@ -80,7 +80,8 @@ public class Pawn extends Piece {
                 }
             }
             if (enpassant(Current, Target, board)) {
-                System.out.println("enpassant");
+                
+               
                 return true;
             }
             return false;
@@ -138,9 +139,10 @@ public boolean enpassant(Tile current, Tile target, Board board) {
     Tile temp = null;
     Pawn besidePawn = null;
     Pawn currentPawn = null;
+    
 
     if (current.isOccupied()&&current.getPiece()instanceof Pawn)
-        currentPawn = (Pawn) current.getPiece();
+        currentPawn = (Pawn)current.getPiece();
     else
         return false;
     if (beside.isOccupied()&&beside.getPiece() instanceof Pawn)
@@ -151,7 +153,7 @@ public boolean enpassant(Tile current, Tile target, Board board) {
     if (besidePawn.color != currentPawn.color && besidePawn.moves == 1 && besidePawn.twoSteps) {
         if (currentPawn.color) {
             temp = board.getTile(beside.x-1,beside.y );
-            System.out.println("enpassaant");
+           
 
         } else {
             temp = board.getTile(beside.x+1,beside.y );
@@ -159,7 +161,9 @@ public boolean enpassant(Tile current, Tile target, Board board) {
         }
     }
     if (temp == target) {
-        return true;
+   
+        System.out.println("enpassant");
+        return true; 
     }
     return false;
 }
