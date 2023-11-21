@@ -92,41 +92,76 @@ public class Pawn extends Piece {
         return piecesType;
     }
 
-    public boolean enpassant(Tile current, Tile target, Board board) {
+//    public boolean enpassant(Tile current, Tile target, Board board) {
+//
+//        Tile left = board.getTile(current.x - 1, current.y);
+//        Tile right = board.getTile(current.x + 1, current.y);
+//        Tile temp = null;
+//        Pawn leftPawn = null;
+//        Pawn rightPawn = null;
+//        Pawn currentPawn = null;
+//
+//        if (left.getPiece() instanceof Pawn)
+//            leftPawn = (Pawn) left.getPiece();
+//        if (right.getPiece() instanceof Pawn)
+//            rightPawn = (Pawn) right.getPiece();
+//        if (current.getPiece() instanceof Pawn)
+//            currentPawn = (Pawn) current.getPiece();
+//        // two opponent pawns next to each other (same y diffrent x)
+//        if (leftPawn != null && leftPawn.color != currentPawn.color && leftPawn.moves == 1 && leftPawn.twoSteps) {
+//            if (currentPawn.color) {
+//                temp = board.getTile(left.x, left.y - 1);
+//
+//            } else {
+//                temp = board.getTile(left.x, left.y + 1);
+//
+//            }
+//        } else if (rightPawn != null && rightPawn.color != currentPawn.color && rightPawn.moves == 1 && rightPawn.twoSteps) {
+//            if (currentPawn.color) {
+//                temp = board.getTile(right.x, right.y - 1);
+//
+//            } else {
+//                temp = board.getTile(right.x, right.y + 1);
+//            }
+//        }
+//        if (temp == target) {
+//            return true;
+//        }
+//        return false;
+//    }
+public boolean enpassant(Tile current, Tile target, Board board) {
 
-        Tile left = board.getTile(current.x - 1, current.y);
-        Tile right = board.getTile(current.x + 1, current.y);
-        Tile temp = null;
-        Pawn leftPawn = null;
-        Pawn rightPawn = null;
-        Pawn currentPawn = null;
 
-        if (left.getPiece() instanceof Pawn)
-            leftPawn = (Pawn) left.getPiece();
-        if (right.getPiece() instanceof Pawn)
-            rightPawn = (Pawn) right.getPiece();
-        if (current.getPiece() instanceof Pawn)
-            currentPawn = (Pawn) current.getPiece();
-        // two opponent pawns next to each other (same y diffrent x)
-        if (leftPawn != null && leftPawn.color != currentPawn.color && leftPawn.moves == 1 && leftPawn.twoSteps) {
-            if (currentPawn.color) {
-                temp = board.getTile(left.x, left.y - 1);
 
-            } else {
-                temp = board.getTile(left.x, left.y + 1);
+    Tile beside = board.getTile(current.x,target.y );
+    //  Tile right = board.getTile(current.x , current.y+1 );
+    Tile temp = null;
+    Pawn besidePawn = null;
+    Pawn currentPawn = null;
 
-            }
-        } else if (rightPawn != null && rightPawn.color != currentPawn.color && rightPawn.moves == 1 && rightPawn.twoSteps) {
-            if (currentPawn.color) {
-                temp = board.getTile(right.x, right.y - 1);
-
-            } else {
-                temp = board.getTile(right.x, right.y + 1);
-            }
-        }
-        if (temp == target) {
-            return true;
-        }
+    if (current.isOccupied()&&current.getPiece()instanceof Pawn)
+        currentPawn = (Pawn) current.getPiece();
+    else
         return false;
+    if (beside.isOccupied()&&beside.getPiece() instanceof Pawn)
+        besidePawn = (Pawn) beside.getPiece();
+    else
+        return false;
+    // two opponent pawns next to each other (same y diffrent x)
+    if (besidePawn.color != currentPawn.color && besidePawn.moves == 1 && besidePawn.twoSteps) {
+        if (currentPawn.color) {
+            temp = board.getTile(beside.x-1,beside.y );
+            System.out.println("enpassaant");
+
+        } else {
+            temp = board.getTile(beside.x+1,beside.y );
+
+        }
     }
+    if (temp == target) {
+        return true;
+    }
+    return false;
+}
+
 }

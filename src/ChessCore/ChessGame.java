@@ -47,8 +47,13 @@ public class ChessGame {
             System.out.println("next move");
 
             Turn();
+            hasLegalMoves(nowPlaying);
+            hasLegalMoves(opponent);
+            isInProgress = game.isGameInProgress();
             //check if game is in progress
             if (isInProgress) {
+
+                System.out.println(nowPlaying.color);
                 //get move
                 Object[] index = Utils.ConvertToIndex(move);
                 int X1 = (int) index[0];
@@ -72,14 +77,13 @@ public class ChessGame {
                         if (move.length() == 5) {
                             moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), opponent);
 
-                            WhitePlayingFlag = !WhitePlayingFlag;
+
                         } //promotion
                         else {
-                            char promotedTo = (char) index[7];
+                            char promotedTo = (char) index[4];
                             if (destinationSquare.getPiece().color == isWhite && destinationSquare.y == 0 || destinationSquare.getPiece().color != isWhite && destinationSquare.y == 7) {
                                 moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), nowPlaying);
                                 moves.Promotion(destinationSquare, promotedTo, nowPlaying);
-                                WhitePlayingFlag = !WhitePlayingFlag;
 
 
                             } else System.out.println("Invalid promotion");
@@ -88,12 +92,12 @@ public class ChessGame {
                     } else {
                         System.out.println("Illegal move");//Illegal move my king is in check}
                     }
-                    isInProgress = game.isGameInProgress();
 
 
                 } else {
                     //player can't play this move
                     System.out.println("Invalid move");
+                    printBoard();
                 }
 
             }
@@ -102,11 +106,19 @@ public class ChessGame {
                 String color=nowPlaying.isKingchecked? opponent.color: nowPlaying.color;
                 System.out.println(color.toUpperCase()+ " HAS WON");
                 break;
-
             }
+            System.out.println(opponent.isKingInCheck());
+            System.out.println(nowPlaying.isKingInCheck());
 
-printBoard();
-            isInProgress = game.isGameInProgress();
+            hasLegalMoves(opponent);
+            hasLegalMoves(nowPlaying);
+            System.out.println(opponent.hasLegalMoves);
+            System.out.println(nowPlaying.hasLegalMoves);
+            isInProgress=game.isGameInProgress();
+//            System.out.println(isInProgress);
+
+
+            printBoard();
             WhitePlayingFlag=!WhitePlayingFlag;
         }
 
@@ -130,18 +142,35 @@ printBoard();
     }
 
     public ArrayList<Tile> getAllMovesFromSquare(Tile current) {
-        ArrayList<Tile> allmoves = new ArrayList<Tile>();
+        ArrayList<Tile> allmoves = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Tile target = chessGameBoard.board[i][j];
-                if (current.getPiece().isValidMove(current, target, chessGameBoard)) {
-                    allmoves.add(target);
-                }
+                    if (current.getPiece().isValidMove(current, target, chessGameBoard) && game.isValidMove(current, target)) {
+                        allmoves.add(target);
+                    }
 
             }
         }
         return allmoves;
 
+    }
+   void hasLegalMoves(Player player) {
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++) {
+                Tile tile = chessGameBoard.board[i][j];
+                if (tile.isOccupied()) {
+                    if (tile.getPiece().color == player.white) {
+
+                        if (getAllMovesFromSquare(tile).size() > 0) {
+                            player.hasLegalMoves = true;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        player.hasLegalMoves=false;
     }
 
 

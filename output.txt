@@ -1,0 +1,35 @@
+Invalid move
+Stalemate
+BLACK Won
+Game already ended
+Stalemate
+WHITE Won
+Game already ended
+Stalemate
+BLACK Won
+Game already ended
+Stalemate
+WHITE Won
+Game already ended
+Stalemate
+BLACK Won
+Game already ended
+Stalemate
+WHITE Won
+Game already ended
+Stalemate
+BLACK Won
+Game already ended
+Stalemate
+WHITE Won
+Game already ended
+Stalemate
+BLACK Won
+Game already ended
+Stalemate
+WHITE Won
+Game already ended
+Stalemate
+BLACK Won
+Game already ended
+Stalemate

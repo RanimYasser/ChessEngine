@@ -1,6 +1,8 @@
 package ChessCore;
 
 
+import java.util.ArrayList;
+
 public class Player {
     String color;
 
@@ -16,6 +18,7 @@ public class Player {
     int pawnbase;
     int totalPieces;
     boolean isKingchecked;
+    boolean hasLegalMoves=true;
 
     public Player(Board chessGameBoard, boolean white) {
         this.chessGameBoard = chessGameBoard;
@@ -112,7 +115,6 @@ public class Player {
                 if (currentTile.isOccupied()) {
                     if (currentTile.getPiece().isValidMove(currentTile, kingTile, chessGameBoard)) {
                         isKingchecked = true;
-                        System.out.println(this.color+" is in check");
                         return true;
                     }
                 }
@@ -122,10 +124,6 @@ public class Player {
         return false;
     }
 
-    boolean noLegalMoves() {
 
-        return true;
-
-    }
 
 }
