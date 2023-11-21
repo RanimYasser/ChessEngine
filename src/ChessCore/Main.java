@@ -4,10 +4,7 @@
  */
 package ChessCore;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -15,17 +12,20 @@ import java.util.ArrayList;
  * @author nadamourad
  */
 public class Main {
+
     
   
     
     public static void main(String[] args) {
-        
-    
+
+        ArrayList<String >output=new ArrayList<>();
         //read from file then instantiate the file
-       String [] moves=loadMovesFromFile("enpassant.txt");
+       String [] moves=loadMovesFromFile("Input.txt");
         printMoves(moves);
         ChessGame chessGame = new ChessGame(moves);
-        chessGame.start();
+        output=chessGame.start();
+        printToFile(output);
+
     }
 
     public static String[] loadMovesFromFile(String filePath) {
@@ -50,6 +50,21 @@ public class Main {
             System.out.print(move + " ");
             }
             System.out.println();
+        }
+        public static void printToFile(ArrayList<String> output){
+            try {
+                BufferedWriter writer=new BufferedWriter(new FileWriter("output.txt"));
+                for(String line: output){
+                    writer.write(line);
+                    writer.newLine();
+                }
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
         }
     
 

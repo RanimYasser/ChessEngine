@@ -47,7 +47,7 @@ public class Moves {
         currentTile.emptyThisTile();
         currentTile.setPiece(KillerTile.getPiece());
         KillerTile.emptyThisTile();// empty killer's tile
-        System.out.println("Captured "+killedPiece.getPiecesType());
+        //System.out.println("Captured "+killedPiece.getPiecesType());
         
         return killedPiece;
     }

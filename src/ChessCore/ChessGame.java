@@ -26,6 +26,7 @@ public class ChessGame {
     boolean WhitePlayingFlag = true;
     Moves moves;
     GameStates game;
+    ArrayList<String> output = new ArrayList<>();
 
     public ChessGame(String[] moves) {
 
@@ -40,11 +41,11 @@ public class ChessGame {
     }
 
 
-    public void start() {
+    public ArrayList<String> start() {
         System.out.println("entered game");
         printBoard();
         for (String move : movesString) {
-           // System.out.println("next move");
+            // System.out.println("next move");
 
             Turn();
             hasLegalMoves(nowPlaying);
@@ -53,7 +54,7 @@ public class ChessGame {
             //check if game is in progress
             if (isInProgress) {
 
-               // System.out.println(nowPlaying.color);
+                // System.out.println(nowPlaying.color);
                 //get move
                 Object[] index = Utils.ConvertToIndex(move);
                 int X1 = (int) index[0];
@@ -75,16 +76,20 @@ public class ChessGame {
 //                        System.out.println(move.length());
 //                        // regular move
                         if (move.length() == 5) {
-                            moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), opponent);
-if (nowPlaying.isKingInCheck())
-{
-    System.out.println(nowPlaying.color + " is in check!");
-}
+                            Piece killed = moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), opponent);
+                            if (killed != null) {
+                                System.out.println("CAPTURED " + killed.getPiecesType());
+                                output.add("CAPTURED " + killed.getPiecesType());
+                            }
+                            if (nowPlaying.isKingInCheck()) {
+                                System.out.println(nowPlaying.color + " is in check!");
+                                output.add(nowPlaying.color + " is in check!");
+                            }
 
                         } //promotion
                         else {
                             char promotedTo = (char) index[4];
-                 if (destinationSquare.getPiece().color == isWhite && destinationSquare.y == 0 || destinationSquare.getPiece().color != isWhite && destinationSquare.y == 7) {
+                            if (destinationSquare.getPiece().color == isWhite && destinationSquare.y == 0 || destinationSquare.getPiece().color != isWhite && destinationSquare.y == 7) {
                                 moves.move(chessGameBoard.getTile(X1, Y1), chessGameBoard.getTile(X2, Y2), nowPlaying);
                                 moves.Promotion(destinationSquare, promotedTo, nowPlaying);
 
@@ -103,33 +108,31 @@ if (nowPlaying.isKingInCheck())
                     printBoard();
                 }
 
-            }
-            else {
+            } else {
                 System.out.println("Game already ended");
-                String color=nowPlaying.isKingchecked? opponent.color: nowPlaying.color;
-                System.out.println(color.toUpperCase()+ " HAS WON");
+                output.add("Game already ended");
+                String color = nowPlaying.isKingchecked ? opponent.color : nowPlaying.color;
+                System.out.println(color.toUpperCase() + " HAS WON");
                 break;
             }
-           // System.out.println(opponent.isKingInCheck());
+            // System.out.println(opponent.isKingInCheck());
             //System.out.println(nowPlaying.isKingInCheck());
 
             hasLegalMoves(opponent);
             hasLegalMoves(nowPlaying);
-          //  System.out.println(opponent.hasLegalMoves);
+            //  System.out.println(opponent.hasLegalMoves);
             //System.out.println(nowPlaying.hasLegalMoves);
-            isInProgress=game.isGameInProgress();
+            isInProgress = game.isGameInProgress();
 //            System.out.println(isInProgress);
-printBoard();
 
-}printBoard();
-        if(!isInProgress){
-            String color=nowPlaying.isKingInCheck()?opponent.color:nowPlaying.color;
-            System.out.println(color.toUpperCase()+" WON");
         }
-       
+        if (!isInProgress) {
+            String color = nowPlaying.isKingInCheck() ? opponent.color : nowPlaying.color;
+            System.out.println(color.toUpperCase() + " WON");
+            output.add(color.toUpperCase() + " WON");
+        }
 
-
-
+return output;
     }
 
     public void Turn() {
@@ -151,18 +154,19 @@ printBoard();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Tile target = chessGameBoard.board[i][j];
-                    if (current.getPiece().isValidMove(current, target, chessGameBoard) && game.isValidMove(current, target)) {
-                        allmoves.add(target);
-                    }
+                if (current.getPiece().isValidMove(current, target, chessGameBoard) && game.isValidMove(current, target)) {
+                    allmoves.add(target);
+                }
 
             }
         }
         return allmoves;
 
     }
-   void hasLegalMoves(Player player) {
-        for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++) {
+
+    void hasLegalMoves(Player player) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 Tile tile = chessGameBoard.board[i][j];
                 if (tile.isOccupied()) {
                     if (tile.getPiece().color == player.white) {
@@ -175,7 +179,7 @@ printBoard();
                 }
             }
         }
-        player.hasLegalMoves=false;
+        player.hasLegalMoves = false;
     }
 
 

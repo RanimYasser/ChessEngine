@@ -1,35 +1,9 @@
-Invalid move
-Stalemate
-BLACK Won
-Game already ended
-Stalemate
-WHITE Won
-Game already ended
-Stalemate
-BLACK Won
-Game already ended
-Stalemate
-WHITE Won
-Game already ended
-Stalemate
-BLACK Won
-Game already ended
-Stalemate
-WHITE Won
-Game already ended
-Stalemate
-BLACK Won
-Game already ended
-Stalemate
-WHITE Won
-Game already ended
-Stalemate
-BLACK Won
-Game already ended
-Stalemate
-WHITE Won
-Game already ended
-Stalemate
-BLACK Won
-Game already ended
-Stalemate
+CAPTURED PAWN
+CAPTURED PAWN
+CAPTURED PAWN
+CAPTURED PAWN
+white is in check!
+CAPTURED QUEEN
+CAPTURED PAWN
+white is in check!
+BLACK WON
