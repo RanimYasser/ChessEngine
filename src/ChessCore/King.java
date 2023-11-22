@@ -1,18 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package ChessCore;
 
-import javax.swing.*;
-import java.util.ArrayList;
 
-/**
- *
- * @author Win11
- */
 public class King extends Piece {
-    private ArrayList<Tile> CandidateCells;
 
     PiecesType piecesType;
     public King(boolean white) {

@@ -1,24 +1,13 @@
 package ChessCore;
 
 
-import java.util.ArrayList;
 
 public class Player {
     String color;
 
-    boolean white;
     Board chessGameBoard;
-    int pawns;
-    int knights;
-    int kings;
-    int queens;
-    int rooks;
-    int bishops;
-    int base;
-    int pawnbase;
-    int totalPieces;
-    boolean isKingchecked;
-    boolean hasLegalMoves;
+    int pawns,knights,kings,queens,rooks,bishops,base,pawnbase,totalPieces;
+    boolean isKingchecked,hasLegalMoves,white;
 
     public Player(Board chessGameBoard, boolean white) {
         this.chessGameBoard = chessGameBoard;
@@ -57,28 +46,6 @@ public class Player {
 
     }
 
-    public void Promotion(Tile target, char promotedTo, boolean white) {
-
-        Tile targetTile = chessGameBoard.getTile(target.x, target.y);
-
-        switch (promotedTo) {
-            case 'Q':
-                targetTile.setPiece(new Queen(white));
-                break;
-            case 'R':
-                targetTile.setPiece(new Rook(white));
-                break;
-            case 'B':
-                targetTile.setPiece(new Bishop(white));
-                break;
-            case 'K':
-                targetTile.setPiece(new Knight(white));
-                break;
-            default:
-                System.out.println("Wrong char");
-
-        }
-    }
 
     Tile findMyKingTile() {
         for (int i = 0; i < 8; i++) {
@@ -113,15 +80,14 @@ public class Player {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Tile currentTile = chessGameBoard.getTile(i, j);
-                if (currentTile.isOccupied()) {
-                    if (currentTile.getPiece().isValidMove(currentTile, kingTile, chessGameBoard)) {
+                if (currentTile.isOccupied()&&(currentTile.getPiece().isValidMove(currentTile, kingTile, chessGameBoard)))
+                {
                         isKingchecked = true;
                         return true;
-                    }
                 }
+
             }
         }
-
         return false;
     }
 

@@ -29,7 +29,7 @@ public class Tile {
 
    public void emptyThisTile()
    {
-   this.piece=null; // f makanha n3ml check isvalid move elawl
+   this.piece=null;
    }
    
    

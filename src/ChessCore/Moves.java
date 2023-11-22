@@ -34,7 +34,6 @@ public class Moves {
        else {
             
             destination.setPiece(source.getPiece());
-        //   System.out.println("moved"+destination.getPiece().getPiecesType()+" to "+destination.x+" "+destination.y);
             source.emptyThisTile();
             
         }
@@ -47,7 +46,7 @@ public class Moves {
         currentTile.emptyThisTile();
         currentTile.setPiece(KillerTile.getPiece());
         KillerTile.emptyThisTile();// empty killer's tile
-        //System.out.println("Captured "+killedPiece.getPiecesType());
+
         
         return killedPiece;
     }

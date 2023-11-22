@@ -11,8 +11,8 @@ package ChessCore;
  */
 public class Bishop extends Piece {
 
-    PiecesType piecesType;
-boolean white;
+   private PiecesType piecesType;
+
 
     public Bishop(boolean white) {
         super(white);
@@ -26,9 +26,9 @@ boolean white;
             if (DiagonalMove(Current.x, Current.y, Target.x, Target.y)) {
 
 
-                int rowIncrement = Integer.compare(Target.x, Current.x);
-                int colIncrement = Integer.compare(Target.y, Current.y);
-                for (int i = Current.x + rowIncrement, j = Current.y + colIncrement; i != Target.x || j != Target.y; i += rowIncrement, j += colIncrement) {
+                int rowSteps = Integer.compare(Target.x, Current.x);
+                int colSteps = Integer.compare(Target.y, Current.y);
+                for (int i = Current.x + rowSteps, j = Current.y + colSteps;i != Target.x || j != Target.y; i += rowSteps, j += colSteps) {
 
                     if (board.board[i][j].getPiece() != null) {
 
@@ -44,6 +44,7 @@ boolean white;
         return false;
     }
     public PiecesType getPiecesType() {
+
         return  piecesType;
     }
 

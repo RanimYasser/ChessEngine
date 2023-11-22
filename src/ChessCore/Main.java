@@ -18,7 +18,7 @@ public class Main {
     
     public static void main(String[] args) {
 
-        ArrayList<String >output=new ArrayList<>();
+        ArrayList<String >output;
         //read from file then instantiate the file
        String [] moves=loadMovesFromFile("Input.txt");
         printMoves(moves);
@@ -37,10 +37,10 @@ public class Main {
                 lines.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception based on your application's needs
+            e.printStackTrace();
         }
 
-        // Convert the List to an array
+
 
        return lines.toArray(new String[lines.size()]);
     }

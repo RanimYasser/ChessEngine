@@ -5,37 +5,39 @@
 package ChessCore;
 
 
-
 /**
- *
  * @author Win11
  */
 public class Knight extends Piece {
     PiecesType piecesType;
-boolean white;
+    boolean white;
+
     public Knight(boolean white) {
 
-super(white);
-piecesType=PiecesType.KNIGHT;
+        super(white);
+        piecesType = PiecesType.KNIGHT;
 
     }
 
- 
-//note this piece is the only one that can jump
+
+    //note this piece is the only one that can jump
     @Override
-    public boolean isValidMove(Tile Current ,Tile Target,Board board) {
+    public boolean isValidMove(Tile Current, Tile Target, Board board) {
         if ((!Target.isOccupied()) || (Target.isOccupied() && (Target.getPiece().color != this.color))) {
-            int deltaRow = Math.abs(Current.x - Target.x);
-            int deltaCol = Math.abs(Current.y - Target.y);
-//Knight can jump
-            if ((deltaRow == 1 && deltaCol == 2 || deltaRow == 2 && deltaCol == 1))
+            int rowstep = Math.abs(Current.x - Target.x);
+            int colStep = Math.abs(Current.y - Target.y);
+            //Knight can jump
+            if ((rowstep == 1 && colStep == 2 || rowstep == 2 && colStep == 1))
                 return true;
-            return false;//Invalid move for horse
-        }
-        return false;// Invalid move because this tile has my piece
+            //Invalid move for knight
+            return false;
+
+        }   // Invalid move because this tile has my piece
+        return false;
     }
+
     public PiecesType getPiecesType() {
-        return  piecesType;
+        return piecesType;
     }
 
 

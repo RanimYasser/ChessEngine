@@ -29,14 +29,18 @@ public class Rook extends Piece {
                 for (int i = Current.x + rowIncrement, j = Current.y + colIncrement; i != Target.x || j != Target.y; i += rowIncrement, j += colIncrement) {
 
                     if (board.board[i][j].getPiece() != null) {
-                        return false; // Path is blocked
+                        // Path is blocked
+                        return false;
                     }
                 }
-                return true;//valid move for rook and path is empty
+                //valid move for rook and path is empty
+                return true;
             }
-            return false;//Invalid move for rook
+            //Invalid move for rook
+            return false;
         }
-        return false;// Invalid move because the cell contains my piece
+        // Invalid move because the cell contains an ally  piece
+        return false;
     }
 
     public PiecesType getPiecesType() {
